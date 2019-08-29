@@ -43,18 +43,10 @@ project {
 
 object Restore : BuildType({
     name = "Restore"
-    steps {
-        msBuild {
-            //...
-        }
-    }
+
 })
 
 object Build : BuildType({
     name = "Build"
-    steps {
-        msBuild {
-            //...
-        }
-    }
+
 })
