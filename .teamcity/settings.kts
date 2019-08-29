@@ -1,4 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
+import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.msBuild
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -25,4 +26,35 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2019.1"
 
 project {
+    sequence {
+        parallel {
+            sequence {
+                build(Restore) {
+                    produces("**/*")
+                }
+                build(Build) {
+                    requires(Restore, "**/*")
+                }
+            }
+        }
+    }
 }
+
+
+object Restore : BuildType({
+    name = "Restore"
+    steps {
+        msBuild {
+            //...
+        }
+    }
+})
+
+object Build : BuildType({
+    name = "Build"
+    steps {
+        msBuild {
+            //...
+        }
+    }
+})
